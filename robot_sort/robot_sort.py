@@ -74,7 +74,7 @@ class SortingRobot:
         elif self._item < self._list[self._position]:
             return -1
         else:
-            return 0
+            return 0        
 
     def set_light_on(self):
         """
@@ -97,15 +97,72 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
 
+        # start at beginning of list
+        # print('at beginning if false: ',robot.can_move_left())
+        # print('item ',robot._item)
+        self.swap_item()
+        # print('item ',robot._item)
+        while True:
+            if self.can_move_right() == False:
+                self.swap_item()
+                # print('item cant move right and swapped',robot._item)
+                break
+
+            while self.can_move_right() == True:
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    # print('item can move right and held item value is greater', robot._item)
+
+            while self.can_move_left() and self.compare_item() is not None:
+                self.move_left() 
+        
+            self.swap_item()
+            # print('item swapped in lower ', robot._item)
+            self.move_right()
+            # print('item moved right in lower ', robot._item)
+            self.swap_item()
+            # print('item swapped in second lower ', robot._item)
+
+
+        # try bubble sort with flashlight to optimize
+        # start at beginning of list
+        # print('at beginning if false: ',self.can_move_left())
+        # print('item is: ',self._item)
+        # print('swapping at start')
+        # self.swap_item()
+        # print('item is: ',self._item)
+        # # while can_move_right == True:
+        # self.set_light_on() #ensure light is on to start, use to determine if swap was made.
+        # print('is light on? ', self.light_is_on())
+
+        # # keep going until a full pass is made without swap
+        # while self.light_is_on() is True:
+        #     self.set_light_off()
+        #     print('can move right?', self.can_move_right())
+            
+        #     while self.can_move_right() is True:
+        #         # compare item at postion with item in front
+        #         print('comparing: ', self.compare_item())
+        #         if self.compare_item() == 1: # if held item is >, swap it 
+        #             #if item in front is less than current item, swap them:
+        #             self.swap_item()
+        #             print('swapping item to: ', self._item)
+        #             self.set_light_on()
+        #         else:
+        #             pass
+        #         self.move_right()
+        #         print('just moved right at end of comparison, item is now: ', self._item)
+
+        
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
     l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
-
+    # l = [15, 41, 58, 49]
     robot = SortingRobot(l)
 
     robot.sort()
